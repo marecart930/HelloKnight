@@ -13,18 +13,22 @@ namespace HelloKnight
 {
     public partial class GameScreen : UserControl
     {
-        bool leftArrowDown, rightArrowDown, upArrowDown, downArrowDown;
+        bool leftArrowDown, rightArrowDown, spaceKeyDown;
 
         Player hero;
         public static int width, height;
-        
+
         public Image currentSprite = Properties.Resources.idle;
+
+        private int jumpSpeed = 10;
+        private int force = 10;
+        private int groundLevel = 290;
+
 
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
 
         {
-            currentSprite = Form1.player[1];
 
             switch (e.KeyCode)
             {
@@ -34,11 +38,8 @@ namespace HelloKnight
                 case Keys.Right:
                     rightArrowDown = false;
                     break;
-                case Keys.Up:
-                    upArrowDown = false;
-                    break;
-                case Keys.Down:
-                    downArrowDown = false;
+                case Keys.Space:
+                    spaceKeyDown = false;
                     break;
             }
         }
@@ -58,12 +59,10 @@ namespace HelloKnight
                 case Keys.Right:
                     rightArrowDown = true;
                     break;
-                case Keys.Up:
-                    upArrowDown = true;
+                case Keys.Space:
+                    spaceKeyDown = true;
                     break;
-                case Keys.Down:
-                    downArrowDown = true;
-                    break;
+
             }
         }
 
@@ -71,28 +70,20 @@ namespace HelloKnight
         {
             InitializeComponent();
             InitializeGame();
+
         }
 
         public void InitializeGame()
         {
             width = this.Width;
             height = this.Height;
-            hero = new Player(400, 290);
+            hero = new Player(400, 290);// Initial position of hero
+            this.groundLevel = hero.y; // Set the initial ground level
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             //move the player
-            if (upArrowDown)
-            {
-                hero.Move("up");
-            }
-
-            if (downArrowDown)
-            {
-                hero.Move("down");
-            }
-
             if (rightArrowDown)
             {
                 hero.Move("right");
@@ -102,8 +93,24 @@ namespace HelloKnight
             {
                 hero.Move("left");
             }
-            Refresh();
-        }
 
+            // Handle jumping logic
+            if (spaceKeyDown && force > 0)
+            {
+                hero.y -= jumpSpeed; // Move up
+                force--;
+            }
+            else if (hero.y < groundLevel)
+            {
+                hero.y += jumpSpeed; // Move down
+                if (hero.y >= groundLevel)
+                {
+                    hero.y = groundLevel; // Ensure character doesn't fall below ground level
+                    force = 10; // Reset the jump force
+                }
+             
+            }
+             Refresh();
+        }
     }
 }

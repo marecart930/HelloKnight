@@ -40,6 +40,15 @@ namespace HelloKnight
                 currentSprite = Form1.rrun[spriteNumber];
                 spriteNumber++;
             }
+            else 
+            {
+                currentSprite = Properties.Resources.idle;
+                //currentSprite = Form1.player[spriteNumber];
+
+                spriteNumber = 0;
+            }
+
+            //currentSprite = Form1.player[0];
 
 
             if (spriteNumber > 3)

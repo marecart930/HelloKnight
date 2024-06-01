@@ -15,6 +15,8 @@ namespace HelloKnight
         public static List<Image> player = new List<Image>();
         public static List<Image> run = new List<Image>();
         public static List<Image> rrun = new List<Image>();
+        public static List<Image> jump = new List<Image>();
+
 
 
         public Form1()
@@ -34,6 +36,14 @@ namespace HelloKnight
             rrun.Add(Properties.Resources.rrun2);
             rrun.Add(Properties.Resources.rrun3);
             rrun.Add(Properties.Resources.rrun4);
+
+            jump.Add(Properties.Resources.jump1);
+            jump.Add(Properties.Resources.jump2);
+            jump.Add(Properties.Resources.jump3);
+            jump.Add(Properties.Resources.jump4);
+            jump.Add(Properties.Resources.land1);
+            jump.Add(Properties.Resources.land2);
+            jump.Add(Properties.Resources.land3);
 
             #endregion
             ChangeScreen(this, new MenuScreen());
