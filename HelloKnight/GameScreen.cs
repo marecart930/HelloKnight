@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace HelloKnight
 {
@@ -18,18 +19,16 @@ namespace HelloKnight
         Player hero;
         public static int width, height;
 
-        public Image currentSprite = Properties.Resources.idle;
-
-        private int jumpSpeed = 10;
-        private int force = 10;
+        private int jumpSpeed = 12; // Determines how much the character moves up or down per tick when jumping or falling
+        private int force = 15; // Determines how long the character keeps moving up when the jump starts
         private int groundLevel = 290;
 
-
+        int spriteNumber = 0;
+        int animationTick = 0; // Counter for controlling animation speed
+        int animationSpeed = 5; // Number of ticks per frame change
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
-
         {
-
             switch (e.KeyCode)
             {
                 case Keys.Left:
@@ -62,7 +61,6 @@ namespace HelloKnight
                 case Keys.Space:
                     spaceKeyDown = true;
                     break;
-
             }
         }
 
@@ -70,28 +68,45 @@ namespace HelloKnight
         {
             InitializeComponent();
             InitializeGame();
-
         }
 
         public void InitializeGame()
         {
             width = this.Width;
             height = this.Height;
-            hero = new Player(400, 290);// Initial position of hero
+            hero = new Player(400, 290); // Initial position of hero
             this.groundLevel = hero.y; // Set the initial ground level
+        }
+
+        private void UpdateJumpSprite()
+        {
+            animationTick++;
+            if (animationTick >= animationSpeed)
+            {
+                animationTick = 0;
+                spriteNumber++;
+                if (spriteNumber >= Form1.jump.Count)
+                {
+                    spriteNumber = 0;
+                }
+                hero.currentSprite = Form1.jump[spriteNumber];
+            }
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            //move the player
+            // Move the player
             if (rightArrowDown)
             {
                 hero.Move("right");
             }
-
-            if (leftArrowDown)
+            else if (leftArrowDown)
             {
                 hero.Move("left");
+            }
+            else if (!spaceKeyDown && hero.y >= groundLevel) // Ensure not to override jump animation
+            {
+                hero.SetIdle(); // Set the player to idle if no keys are pressed and on the ground
             }
 
             // Handle jumping logic
@@ -99,18 +114,25 @@ namespace HelloKnight
             {
                 hero.y -= jumpSpeed; // Move up
                 force--;
+                UpdateJumpSprite(); // Update jump sprite
             }
             else if (hero.y < groundLevel)
             {
                 hero.y += jumpSpeed; // Move down
+                UpdateJumpSprite(); // Update jump sprite
+
                 if (hero.y >= groundLevel)
                 {
                     hero.y = groundLevel; // Ensure character doesn't fall below ground level
-                    force = 10; // Reset the jump force
+                    force = 15; // Reset the jump force
+
+                    // Reset to idle sprite
+                    hero.currentSprite = Properties.Resources.idle;
+                    spriteNumber = 0;
                 }
-             
             }
-             Refresh();
+
+            Refresh();
         }
     }
 }

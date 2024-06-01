@@ -18,7 +18,6 @@ namespace HelloKnight
         public int height = 50;
         public int speed = 5;
 
-
         public Player(int x, int y)
         {
             this.x = x;
@@ -32,7 +31,6 @@ namespace HelloKnight
                 x -= speed;
                 currentSprite = Form1.run[spriteNumber];
                 spriteNumber++;
-
             }
             else if (direction == "right")
             {
@@ -40,21 +38,17 @@ namespace HelloKnight
                 currentSprite = Form1.rrun[spriteNumber];
                 spriteNumber++;
             }
-            else 
-            {
-                currentSprite = Properties.Resources.idle;
-                //currentSprite = Form1.player[spriteNumber];
-
-                spriteNumber = 0;
-            }
-
-            //currentSprite = Form1.player[0];
-
 
             if (spriteNumber > 3)
             {
                 spriteNumber = 0;
             }
+        }
+
+        public void SetIdle()
+        {
+            currentSprite = Properties.Resources.idle;
+            spriteNumber = 0;
         }
     }
 }
