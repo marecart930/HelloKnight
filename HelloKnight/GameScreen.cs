@@ -14,7 +14,7 @@ namespace HelloKnight
 {
     public partial class GameScreen : UserControl
     {
-        bool leftArrowDown, rightArrowDown, spaceKeyDown;
+        bool aKeyDown, dKeyDown, spaceKeyDown, shiftKeyDown;
 
         Player hero;
         public static int width, height;
@@ -26,43 +26,10 @@ namespace HelloKnight
         int spriteNumber = 0;
         int animationTick = 0; // Counter for controlling animation speed
         int animationSpeed = 5; // Number of ticks per frame change
-
-        private void GameScreen_KeyUp(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Left:
-                    leftArrowDown = false;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = false;
-                    break;
-                case Keys.Space:
-                    spaceKeyDown = false;
-                    break;
-            }
-        }
-
-        private void GameScreen_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawImage(hero.currentSprite, hero.x, hero.y, hero.width + 50, hero.height + 50);
-        }
-
-        private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Left:
-                    leftArrowDown = true;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = true;
-                    break;
-                case Keys.Space:
-                    spaceKeyDown = true;
-                    break;
-            }
-        }
+        int dashSpeed = 10;
+        int normalSpeed = 5;
+        int dashDuration = 15; // Number of ticks the dash lasts
+        int dashTicksRemaining = 0; // Counter for remaining dash ticks
 
         public GameScreen()
         {
@@ -78,57 +45,154 @@ namespace HelloKnight
             this.groundLevel = hero.y; // Set the initial ground level
         }
 
-        private void UpdateJumpSprite()
+        private void GameScreen_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.A:
+                    aKeyDown = false;
+                    break;
+                case Keys.D:
+                    dKeyDown = false;
+                    break;
+                case Keys.Space:
+                    spaceKeyDown = false;
+                    break;
+                case Keys.ShiftKey:
+                    shiftKeyDown = false;
+                    break;
+            }
+        }
+
+        private void GameScreen_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawImage(hero.currentSprite, hero.x, hero.y, hero.width + 50, hero.height + 50);
+        }
+
+        private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.A:
+                    aKeyDown = true;
+                    break;
+                case Keys.D:
+                    dKeyDown = true;
+                    break;
+                case Keys.Space:
+                    spaceKeyDown = true;
+                    break;
+                case Keys.ShiftKey:
+                    if (!shiftKeyDown && dashTicksRemaining <= 0)
+                    {
+                        shiftKeyDown = true;
+                        Dash();
+                    }
+                    break;
+            }
+        }
+
+        private void UpdateAnimation(List<Image> spriteList)
         {
             animationTick++;
             if (animationTick >= animationSpeed)
             {
                 animationTick = 0;
                 spriteNumber++;
-                if (spriteNumber >= Form1.jump.Count)
+                if (spriteNumber >= spriteList.Count)
                 {
                     spriteNumber = 0;
                 }
-                hero.currentSprite = Form1.jump[spriteNumber];
+                hero.currentSprite = spriteList[spriteNumber];
             }
+        }
+
+        private void Dash()
+        {
+            dashTicksRemaining = dashDuration;
+            hero.speed = dashSpeed; // Increase speed for dashing
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            // Move the player
-            if (rightArrowDown)
+            // Handle dash duration
+            if (dashTicksRemaining > 0)
+            {
+                dashTicksRemaining--;
+                if (aKeyDown)
+                {
+                    hero.Move("left");
+                }
+                else if (dKeyDown)
+                {
+                    hero.Move("right");
+                }
+
+                if (dashTicksRemaining == 0)
+                {
+                    hero.speed = normalSpeed; // Reset speed after dashing
+                }
+            }
+
+            // Handle player horizontal movement
+            if (dKeyDown && hero.y == groundLevel)
             {
                 hero.Move("right");
+                UpdateAnimation(Form1.rrun);
             }
-            else if (leftArrowDown)
+            else if (aKeyDown && hero.y == groundLevel)
             {
                 hero.Move("left");
+                UpdateAnimation(Form1.run);
             }
-            else if (!spaceKeyDown && hero.y >= groundLevel) // Ensure not to override jump animation
+            else if (!spaceKeyDown && hero.y >= groundLevel)
             {
-                hero.SetIdle(); // Set the player to idle if no keys are pressed and on the ground
+                hero.SetIdle();
             }
 
             // Handle jumping logic
             if (spaceKeyDown && force > 0)
             {
-                hero.y -= jumpSpeed; // Move up
+                hero.y -= jumpSpeed;
                 force--;
-                UpdateJumpSprite(); // Update jump sprite
+                if (dKeyDown)
+                {
+                    hero.Move("right");
+                    UpdateAnimation(Form1.rjump);
+                }
+                else if (aKeyDown)
+                {
+                    hero.Move("left");
+                    UpdateAnimation(Form1.jump);
+                }
+                else
+                {
+                    UpdateAnimation(Form1.jump);
+                }
             }
             else if (hero.y < groundLevel)
             {
-                hero.y += jumpSpeed; // Move down
-                UpdateJumpSprite(); // Update jump sprite
+                hero.y += jumpSpeed;
+                if (dKeyDown)
+                {
+                    hero.Move("right");
+                    UpdateAnimation(Form1.rjump);
+                }
+                else if (aKeyDown)
+                {
+                    hero.Move("left");
+                    UpdateAnimation(Form1.jump);
+                }
+                else
+                {
+                    UpdateAnimation(Form1.jump);
+                }
 
                 if (hero.y >= groundLevel)
                 {
-                    hero.y = groundLevel; // Ensure character doesn't fall below ground level
-                    force = 15; // Reset the jump force
-
-                    // Reset to idle sprite
-                    hero.currentSprite = Properties.Resources.idle;
-                    spriteNumber = 0;
+                    hero.y = groundLevel;
+                    force = 15;
+                    hero.SetIdle();
                 }
             }
 

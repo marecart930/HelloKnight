@@ -10,7 +10,6 @@ namespace HelloKnight
 {
     internal class Player
     {
-        int spriteNumber = 0;
         public Image currentSprite = Properties.Resources.idle;
 
         public int x, y;
@@ -29,26 +28,16 @@ namespace HelloKnight
             if (direction == "left")
             {
                 x -= speed;
-                currentSprite = Form1.run[spriteNumber];
-                spriteNumber++;
             }
             else if (direction == "right")
             {
                 x += speed;
-                currentSprite = Form1.rrun[spriteNumber];
-                spriteNumber++;
-            }
-
-            if (spriteNumber > 3)
-            {
-                spriteNumber = 0;
             }
         }
 
         public void SetIdle()
         {
             currentSprite = Properties.Resources.idle;
-            spriteNumber = 0;
         }
     }
 }

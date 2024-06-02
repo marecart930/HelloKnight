@@ -165,5 +165,56 @@
   <ItemGroup>
     <None Include="Resources\land3.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rjump1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rjump2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rjump3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rjump4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rland1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rland2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dash1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dash2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dash3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dash4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dash5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rdash 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rdash 4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rdash 5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rdash 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\image %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rdash1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

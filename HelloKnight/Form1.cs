@@ -16,6 +16,9 @@ namespace HelloKnight
         public static List<Image> run = new List<Image>();
         public static List<Image> rrun = new List<Image>();
         public static List<Image> jump = new List<Image>();
+        public static List<Image> rjump = new List<Image>();
+        public static List<Image> dash = new List<Image>();
+        public static List<Image> rdash = new List<Image>();
 
 
 
@@ -44,6 +47,28 @@ namespace HelloKnight
             jump.Add(Properties.Resources.land1);
             jump.Add(Properties.Resources.land2);
             jump.Add(Properties.Resources.land3);
+
+            rjump.Add(Properties.Resources.rjump1);
+            rjump.Add(Properties.Resources.rjump2);
+            rjump.Add(Properties.Resources.rjump3);
+            rjump.Add(Properties.Resources.rjump4);
+            rjump.Add(Properties.Resources.rland1);
+            rjump.Add(Properties.Resources.rland2);
+            rjump.Add(Properties.Resources.rland3);
+
+            dash.Add(Properties.Resources.dash1);
+            dash.Add(Properties.Resources.dash2);
+            dash.Add(Properties.Resources.dash3);
+            dash.Add(Properties.Resources.dash4);
+            dash.Add(Properties.Resources.dash5);
+
+            rdash.Add(Properties.Resources.rdash1);
+            rdash.Add(Properties.Resources.rdash2);
+            rdash.Add(Properties.Resources.rdash3);
+            rdash.Add(Properties.Resources.rdash4);
+            rdash.Add(Properties.Resources.rdash5);
+
+
 
             #endregion
             ChangeScreen(this, new MenuScreen());
