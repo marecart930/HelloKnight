@@ -19,17 +19,20 @@ namespace HelloKnight
         Player hero;
         public static int width, height;
 
-        private int jumpSpeed = 12; // Determines how much the character moves up or down per tick when jumping or falling
-        private int force = 15; // Determines how long the character keeps moving up when the jump starts
+        private int jumpSpeed = 12;
+        private int force = 15;
         private int groundLevel = 290;
 
         int spriteNumber = 0;
-        int animationTick = 0; // Counter for controlling animation speed
-        int animationSpeed = 5; // Number of ticks per frame change
+        int animationTick = 0;
+        int animationSpeed = 5;
         int dashSpeed = 10;
         int normalSpeed = 5;
-        int dashDuration = 15; // Number of ticks the dash lasts
-        int dashTicksRemaining = 0; // Counter for remaining dash ticks
+        int dashDuration = 15;
+        int dashTicksRemaining = 0;
+
+        private bool canDoubleJump = false;
+        private bool doubleJumped = false;
 
         public GameScreen()
         {
@@ -41,8 +44,8 @@ namespace HelloKnight
         {
             width = this.Width;
             height = this.Height;
-            hero = new Player(400, 290); // Initial position of hero
-            this.groundLevel = hero.y; // Set the initial ground level
+            hero = new Player(400, 290);
+            this.groundLevel = hero.y;
         }
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
@@ -81,6 +84,10 @@ namespace HelloKnight
                     break;
                 case Keys.Space:
                     spaceKeyDown = true;
+                    if (hero.y == groundLevel || canDoubleJump)
+                    {
+                        Jump();
+                    }
                     break;
                 case Keys.ShiftKey:
                     if (!shiftKeyDown && dashTicksRemaining <= 0)
@@ -110,7 +117,23 @@ namespace HelloKnight
         private void Dash()
         {
             dashTicksRemaining = dashDuration;
-            hero.speed = dashSpeed; // Increase speed for dashing
+            hero.speed = dashSpeed;
+        }
+
+        private void Jump()
+        {
+            if (hero.y == groundLevel)
+            {
+                force = 15;
+                canDoubleJump = true;
+                doubleJumped = false;
+            }
+            else if (canDoubleJump && !doubleJumped)
+            {
+                force = 15;
+                doubleJumped = true;
+                canDoubleJump = false;
+            }
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
@@ -130,7 +153,7 @@ namespace HelloKnight
 
                 if (dashTicksRemaining == 0)
                 {
-                    hero.speed = normalSpeed; // Reset speed after dashing
+                    hero.speed = normalSpeed;
                 }
             }
 
@@ -192,6 +215,8 @@ namespace HelloKnight
                 {
                     hero.y = groundLevel;
                     force = 15;
+                    canDoubleJump = false;
+                    doubleJumped = false;
                     hero.SetIdle();
                 }
             }
