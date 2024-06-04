@@ -99,7 +99,25 @@ namespace HelloKnight
             }
         }
 
+        private void GameScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (aKeyDown)
+            {
+                UpdateAnimation(Form1.attack);
+            }
+            else if (dKeyDown)
+            {
+               UpdateAnimation(Form1.rattack);
+            }
+            else
+            {
+               UpdateAnimation(Form1.attack);
+
+            }
+        }
+
         private void UpdateAnimation(List<Image> spriteList)
+            //call UpdateAnimation to run and update sprite lists 
         {
             animationTick++;
             if (animationTick >= animationSpeed)
@@ -145,10 +163,14 @@ namespace HelloKnight
                 if (aKeyDown)
                 {
                     hero.Move("left");
+                    //UpdateAnimation(Form1.dash);
+
                 }
                 else if (dKeyDown)
                 {
                     hero.Move("right");
+                    //UpdateAnimation(Form1.rdash);
+
                 }
 
                 if (dashTicksRemaining == 0)
@@ -177,6 +199,7 @@ namespace HelloKnight
             if (spaceKeyDown && force > 0)
             {
                 hero.y -= jumpSpeed;
+                //jumpSpeed -= 12;
                 force--;
                 if (dKeyDown)
                 {
@@ -196,6 +219,7 @@ namespace HelloKnight
             else if (hero.y < groundLevel)
             {
                 hero.y += jumpSpeed;
+                //jumpSpeed -= 12;
                 if (dKeyDown)
                 {
                     hero.Move("right");
@@ -215,12 +239,12 @@ namespace HelloKnight
                 {
                     hero.y = groundLevel;
                     force = 15;
+                    //jumpSpeed = 20; 
                     canDoubleJump = false;
                     doubleJumped = false;
                     hero.SetIdle();
                 }
             }
-
             Refresh();
         }
     }

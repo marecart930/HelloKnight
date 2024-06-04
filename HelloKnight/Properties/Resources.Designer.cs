@@ -63,6 +63,36 @@ namespace HelloKnight.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap attack1 {
+            get {
+                object obj = ResourceManager.GetObject("attack1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap attack2 {
+            get {
+                object obj = ResourceManager.GetObject("attack2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap attack3 {
+            get {
+                object obj = ResourceManager.GetObject("attack3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dash1 {
             get {
                 object obj = ResourceManager.GetObject("dash1", resourceCulture);
@@ -196,6 +226,36 @@ namespace HelloKnight.Properties {
         internal static System.Drawing.Bitmap maxresdefault {
             get {
                 object obj = ResourceManager.GetObject("maxresdefault", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rattack1 {
+            get {
+                object obj = ResourceManager.GetObject("rattack1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rattack2 {
+            get {
+                object obj = ResourceManager.GetObject("rattack2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rattack3 {
+            get {
+                object obj = ResourceManager.GetObject("rattack3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

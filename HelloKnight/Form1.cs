@@ -19,6 +19,8 @@ namespace HelloKnight
         public static List<Image> rjump = new List<Image>();
         public static List<Image> dash = new List<Image>();
         public static List<Image> rdash = new List<Image>();
+        public static List<Image> attack = new List<Image>();
+        public static List<Image> rattack = new List<Image>();
 
 
 
@@ -68,6 +70,13 @@ namespace HelloKnight
             rdash.Add(Properties.Resources.rdash4);
             rdash.Add(Properties.Resources.rdash5);
 
+            attack.Add(Properties.Resources.attack1);
+            attack.Add(Properties.Resources.attack2);
+            attack.Add(Properties.Resources.attack3);
+
+            rattack.Add(Properties.Resources.rattack1);
+            rattack.Add(Properties.Resources.rattack2);
+            rattack.Add(Properties.Resources.rattack3);
 
 
             #endregion
