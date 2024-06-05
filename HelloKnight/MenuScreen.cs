@@ -22,5 +22,10 @@ namespace HelloKnight
             Form1.ChangeScreen(this, new GameScreen());
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form1.ChangeScreen(this, new InstructionScreen());
+        }
     }
 }
