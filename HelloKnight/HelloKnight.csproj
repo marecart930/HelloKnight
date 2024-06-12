@@ -282,5 +282,32 @@
   <ItemGroup>
     <None Include="Resources\Untitled design %282%29.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

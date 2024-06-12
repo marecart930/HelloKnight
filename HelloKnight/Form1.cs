@@ -21,6 +21,8 @@ namespace HelloKnight
         public static List<Image> rdash = new List<Image>();
         public static List<Image> attack = new List<Image>();
         public static List<Image> rattack = new List<Image>();
+        public static List<Image> bug = new List<Image>();
+
 
 
 
@@ -80,6 +82,25 @@ namespace HelloKnight
             rattack.Add(Properties.Resources.rattack1);
             rattack.Add(Properties.Resources.rattack2);
             rattack.Add(Properties.Resources.rattack3);
+
+            bug.Add(Properties.Resources.bug1);
+            bug.Add(Properties.Resources.bug2);
+            bug.Add(Properties.Resources.bug3);
+            bug.Add(Properties.Resources.bug4);
+            bug.Add(Properties.Resources.bug5);
+            bug.Add(Properties.Resources.bug6);
+            bug.Add(Properties.Resources.bug7);
+            bug.Add(Properties.Resources.bug8);
+            bug.Add(Properties.Resources.bug9);
+
+
+
+
+
+
+
+
+
 
 
             #endregion
