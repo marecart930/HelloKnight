@@ -96,6 +96,17 @@ namespace HelloKnight
                         Dash();
                     }
                     break;
+
+                //test   
+                case Keys.B:
+                    int check = 1;
+                    break;
+                case Keys.Escape:
+                    Application.Exit();
+                    break;
+                case Keys.R:
+                    Application.Restart();
+                    break; 
             }
         }
 
@@ -192,7 +203,7 @@ namespace HelloKnight
             }
             else if (!spaceKeyDown && hero.y >= groundLevel)
             {
-                hero.SetIdle();
+                UpdateAnimation(Form1.player);
             }
 
             // Handle jumping logic
@@ -242,7 +253,7 @@ namespace HelloKnight
                     //jumpSpeed = 20; 
                     canDoubleJump = false;
                     doubleJumped = false;
-                    hero.SetIdle();
+                    UpdateAnimation(Form1.player);
                 }
             }
             Refresh();

@@ -30,7 +30,10 @@ namespace HelloKnight
             #region sprites
             player.Add(Properties.Resources.idle);
             player.Add(Properties.Resources.idle);
-
+            player.Add(Properties.Resources.idle2);
+            player.Add(Properties.Resources.idle2);
+            player.Add(Properties.Resources.idle3);
+            player.Add(Properties.Resources.idle3);
 
             run.Add(Properties.Resources.run1);
             run.Add(Properties.Resources.run2);

@@ -28,10 +28,17 @@ namespace HelloKnight
             if (direction == "left")
             {
                 x -= speed;
+
+                if (x < 0)
+                    x = 0;
             }
             else if (direction == "right")
             {
                 x += speed;
+                if (x + width > GameScreen.width - 50)
+                {
+                    x = GameScreen.width - width - 50;
+                }
             }
         }
 
