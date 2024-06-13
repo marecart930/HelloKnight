@@ -44,7 +44,7 @@ namespace HelloKnight
         {
             width = this.Width;
             height = this.Height;
-            hero = new Player(400, 290);
+            hero = new Player(200, 290);
             this.groundLevel = hero.y;
         }
 
@@ -70,6 +70,8 @@ namespace HelloKnight
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(hero.currentSprite, hero.x, hero.y, hero.width + 50, hero.height + 50);
+            e.Graphics.FillRectangle(Brushes.White, hero.block);
+            e.Graphics.DrawRectangle(Pens.White, hero.x, hero.y, hero.width, hero.height);
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -167,6 +169,10 @@ namespace HelloKnight
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            using (Graphics g = this.CreateGraphics())
+            {
+                hero.BlockCollision(hero.block, g);
+            }
             // Handle dash duration
             if (dashTicksRemaining > 0)
             {

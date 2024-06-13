@@ -23,9 +23,6 @@ namespace HelloKnight
         public static List<Image> rattack = new List<Image>();
         public static List<Image> bug = new List<Image>();
 
-
-
-
         public Form1()
         {
             InitializeComponent();
@@ -93,20 +90,9 @@ namespace HelloKnight
             bug.Add(Properties.Resources.bug8);
             bug.Add(Properties.Resources.bug9);
 
-
-
-
-
-
-
-
-
-
-
             #endregion
             ChangeScreen(this, new MenuScreen());
         }
-
 
         public static void ChangeScreen(object sender, UserControl next)
         {
