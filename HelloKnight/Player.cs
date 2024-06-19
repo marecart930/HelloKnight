@@ -12,13 +12,15 @@ namespace HelloKnight
     {
         public Image currentSprite = Properties.Resources.idle;
 
-        public int x, y;
-        public int width = 30;
-        public int height = 50;
+        public static bool onBlock;
+
+        public int x, y, topY;
+        public int width = 70;
+        public int height = 90;
         public int speed = 5;
         Region playerRegion;
         PointF prevPosition = new PointF();
-        public Rectangle block = new Rectangle(330, 330, 195, 60);
+        
 
         public Player(int x, int y)
         {
@@ -48,43 +50,51 @@ namespace HelloKnight
             playerRegion = new Region(new RectangleF(x, y, width, height));
         }
 
-        public bool BlockCollision(RectangleF b, Graphics g)
+        public bool BlockCollision(RectangleF b)
         {
-            //RectangleF blockRec = new RectangleF(p.x, p.y, p.width, p.height);
             RectangleF playerRec = new RectangleF(x, y, width, height);
 
-            Region blockRegion = new Region(b);
-            blockRegion.Intersect(playerRegion);
+            // Find overlap area
+            float overlapX = Math.Max(0, Math.Min(x + width, b.Right) - Math.Max(x, b.Left));
+            float overlapY = Math.Max(0, Math.Min(y + height, b.Bottom) - Math.Max(y, b.Top));
 
-            if (!blockRegion.IsEmpty(g))
+            // Check if there is an intersection
+            if (overlapX > 0 && overlapY > 0)
             {
-                RectangleF location = blockRegion.GetBounds(g);
-                if (location.Width >= location.Height)
+                if (overlapX < overlapY)
                 {
-                    if (b.Y + (b.Height / 2) > prevPosition.Y + (height / 2)) //above
+                    // Horizontal collisions
+                    if (x + width / 2 < b.X + b.Width / 2)
                     {
-                        y = (int)b.Y - height;
-                        speed = 0;
+                        // LEft collsions
+                        x = (int)(b.X - width);
                     }
                     else
                     {
-                        y = (int)b.Y + (int)b.Height;
-                        speed *= -1;
+                        // Rigth collisons
+                        x = (int)b.Right;
                     }
                 }
                 else
                 {
-                    if (b.X + (b.Width / 2) > x + (width / 2)) //to the left
+                    // vertical collsions
+                    if (y + height / 2 < b.Y + b.Height / 2)
                     {
-                        x = (int)b.X - width;
+                        // top collision 
+                        y = (int)(b.Y - height);
+                        onBlock = true;
                     }
                     else
                     {
-                        x = (int)b.X + (int)b.Width;
+                        // Bottom collision
+                        y = (int)b.Bottom;
+
                     }
                 }
+                return true; 
             }
-            return b.IntersectsWith(playerRec);
+            onBlock = false;
+            return false; 
         }
 
         public void SetIdle()

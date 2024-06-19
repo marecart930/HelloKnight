@@ -310,5 +310,8 @@
   <ItemGroup>
     <None Include="Resources\bug1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bigshitter-removebg-preview.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

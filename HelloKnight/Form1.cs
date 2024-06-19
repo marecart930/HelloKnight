@@ -22,6 +22,8 @@ namespace HelloKnight
         public static List<Image> attack = new List<Image>();
         public static List<Image> rattack = new List<Image>();
         public static List<Image> bug = new List<Image>();
+        public static List<Image> platform = new List<Image>();
+
 
         public Form1()
         {
@@ -73,12 +75,12 @@ namespace HelloKnight
             rdash.Add(Properties.Resources.rdash5);
 
             attack.Add(Properties.Resources.attack1);
-            attack.Add(Properties.Resources.attack2);
-            attack.Add(Properties.Resources.attack3);
+            //attack.Add(Properties.Resources.attack2);
+            //attack.Add(Properties.Resources.attack3);
 
             rattack.Add(Properties.Resources.rattack1);
-            rattack.Add(Properties.Resources.rattack2);
-            rattack.Add(Properties.Resources.rattack3);
+            //rattack.Add(Properties.Resources.rattack2);
+            //rattack.Add(Properties.Resources.rattack3);
 
             bug.Add(Properties.Resources.bug1);
             bug.Add(Properties.Resources.bug2);
@@ -89,6 +91,9 @@ namespace HelloKnight
             bug.Add(Properties.Resources.bug7);
             bug.Add(Properties.Resources.bug8);
             bug.Add(Properties.Resources.bug9);
+
+            platform.Add(Properties.Resources.platform);
+
 
             #endregion
             ChangeScreen(this, new MenuScreen());
