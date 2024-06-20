@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bug.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,6 +249,72 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Untitled design %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design %287%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design %286%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design %285%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design %284%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled design %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bigshitter-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\image-removebg-preview.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

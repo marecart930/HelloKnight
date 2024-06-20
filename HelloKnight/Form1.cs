@@ -21,8 +21,7 @@ namespace HelloKnight
         public static List<Image> rdash = new List<Image>();
         public static List<Image> attack = new List<Image>();
         public static List<Image> rattack = new List<Image>();
-
-
+        public static List<Image> bug = new List<Image>();
 
         public Form1()
         {
@@ -30,7 +29,10 @@ namespace HelloKnight
             #region sprites
             player.Add(Properties.Resources.idle);
             player.Add(Properties.Resources.idle);
-
+            player.Add(Properties.Resources.idle2);
+            player.Add(Properties.Resources.idle2);
+            player.Add(Properties.Resources.idle3);
+            player.Add(Properties.Resources.idle3);
 
             run.Add(Properties.Resources.run1);
             run.Add(Properties.Resources.run2);
@@ -71,18 +73,26 @@ namespace HelloKnight
             rdash.Add(Properties.Resources.rdash5);
 
             attack.Add(Properties.Resources.attack1);
-            attack.Add(Properties.Resources.attack2);
-            attack.Add(Properties.Resources.attack3);
+            //attack.Add(Properties.Resources.attack2);
+            //attack.Add(Properties.Resources.attack3);
 
             rattack.Add(Properties.Resources.rattack1);
-            rattack.Add(Properties.Resources.rattack2);
-            rattack.Add(Properties.Resources.rattack3);
+            //rattack.Add(Properties.Resources.rattack2);
+            //rattack.Add(Properties.Resources.rattack3);
 
+            bug.Add(Properties.Resources.bug1);
+            bug.Add(Properties.Resources.bug2);
+            bug.Add(Properties.Resources.bug3);
+            bug.Add(Properties.Resources.bug4);
+            bug.Add(Properties.Resources.bug5);
+            bug.Add(Properties.Resources.bug6);
+            bug.Add(Properties.Resources.bug7);
+            bug.Add(Properties.Resources.bug8);
+            bug.Add(Properties.Resources.bug9);
 
             #endregion
             ChangeScreen(this, new MenuScreen());
         }
-
 
         public static void ChangeScreen(object sender, UserControl next)
         {
