@@ -242,7 +242,7 @@ namespace HelloKnight
                     //jumpSpeed = 20; 
                     canDoubleJump = false;
                     doubleJumped = false;
-                    hero.SetIdle();
+                    UpdateAnimation(Form1.player);
                 }
             }
             Refresh();
