@@ -32,6 +32,7 @@ namespace HelloKnight
         public void Move(string direction)
         {
             prevPosition = new PointF(x, y);
+            //Wall collisions
             if (direction == "left")
             {
                 x -= speed;
@@ -42,9 +43,9 @@ namespace HelloKnight
             else if (direction == "right")
             {
                 x += speed;
-                if (x + width > GameScreen.width - 50)
+                if (x + width > GameScreen.width)
                 {
-                    x = GameScreen.width - width - 50;
+                    x = GameScreen.width - width ;
                 }
             }
             playerRegion = new Region(new RectangleF(x, y, width, height));

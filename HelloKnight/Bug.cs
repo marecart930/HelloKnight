@@ -10,12 +10,17 @@ namespace HelloKnight
 {
     internal class Bug
     {
-        public Image currentSprite = Properties.Resources.idle;
-
+        public Image currentBugSprite;
         public int x, y;
-        public int width = 50;
-        public int height = 50;
+        public int width = 100;
+        public int height = 100;
+
+        public Bug(int startX, int startY)
+        {
+            x = startX;
+            y = startY;
+            currentBugSprite = Form1.bug[0]; // Initialize the bug sprite
+        }
     }
-
-
 }
+

@@ -16,6 +16,8 @@ namespace HelloKnight
     {
         bool aKeyDown, dKeyDown, spaceKeyDown, shiftKeyDown;
         Player hero;
+        Bug bug;  // Declare the Bug object
+
         public static int width, height;
 
         private int jumpSpeed = 12;
@@ -36,6 +38,8 @@ namespace HelloKnight
 
         Rectangle block = new Rectangle(380, 330, 140, 60);
         Rectangle block2 = new Rectangle(200, 150, 140, 60);
+        Rectangle theImageWasntTheRightSizeBlock = new Rectangle(190, 145, 160, 70);
+
         Rectangle onRec;
 
         List<Rectangle> blocks = new List<Rectangle>();
@@ -51,10 +55,12 @@ namespace HelloKnight
             width = this.Width;
             height = this.Height;
             hero = new Player(200, 290);
+            bug = new Bug(560, 145);  // Initialize the Bug object
+
             this.groundLevel = hero.y;
 
             blocks.Add(block);
-            this.blocks.Add(block2);
+            blocks.Add(block2);
         }
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
@@ -79,10 +85,10 @@ namespace HelloKnight
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(hero.currentSprite, hero.x, hero.y, hero.width, hero.height);
-            e.Graphics.FillRectangle(Brushes.White, block);
-            e.Graphics.FillRectangle(Brushes.White, block2);
-            //e.Graphics.DrawImage(Form1.platfrom, block2);
-            //e.Graphics.DrawRectangle(Pens.White, hero.x, hero.y, hero.width, hero.height);
+            e.Graphics.DrawImage(bug.currentBugSprite, bug.x, bug.y, bug.width, bug.height);
+
+            // Draw the blocks
+            e.Graphics.DrawImage(Properties.Resources.platform2, theImageWasntTheRightSizeBlock);
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -143,7 +149,6 @@ namespace HelloKnight
         {
             if (isAttacking)
             {
-                // Use a specific attack animation set
                 spriteList = aKeyDown ? Form1.attack : (dKeyDown ? Form1.rattack : Form1.attack);
 
                 animationTick++;
@@ -161,7 +166,6 @@ namespace HelloKnight
             }
             else
             {
-                // Default animation logic
                 animationTick++;
                 if (animationTick >= animationSpeed)
                 {
@@ -173,6 +177,23 @@ namespace HelloKnight
                     }
                     hero.currentSprite = spriteList[spriteNumber];
                 }
+            }
+        }
+
+        private void UpdateBugAnimation()
+        {
+            List<Image> bugSpriteList = Form1.bug; // Get the bug sprites from Form1
+
+            animationTick++;
+            if (animationTick >= animationSpeed)
+            {
+                animationTick = 0;
+                spriteNumber++;
+                if (spriteNumber >= bugSpriteList.Count)
+                {
+                    spriteNumber = 0;
+                }
+                bug.currentBugSprite = bugSpriteList[spriteNumber];
             }
         }
 
@@ -200,13 +221,6 @@ namespace HelloKnight
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            //using (Graphics g = this.CreateGraphics())
-            //{
-            //    //block collision can be called for any block to automatically give it collisions saving the time of coding collisions for each block
-            //    hero.BlockCollision(block, g);
-            //    hero.BlockCollision(block2, g);
-            //}
-
             foreach (Rectangle rec in blocks)
             {
                 if (hero.BlockCollision(rec))
@@ -218,8 +232,6 @@ namespace HelloKnight
                     }
                 }
             }
-
-
 
             // Handle attack animation priority
             if (isAttacking)
@@ -247,12 +259,10 @@ namespace HelloKnight
                 if (aKeyDown)
                 {
                     hero.Move("left");
-                    //UpdateAnimation(Form1.dash);
                 }
                 else if (dKeyDown)
                 {
                     hero.Move("right");
-                    //UpdateAnimation(Form1.rdash);
                 }
 
                 if (dashTicksRemaining == 0)
@@ -281,7 +291,6 @@ namespace HelloKnight
             if (spaceKeyDown && force > 0)
             {
                 hero.y -= jumpSpeed;
-
 
                 Player.onBlock = false;
 
@@ -321,18 +330,14 @@ namespace HelloKnight
 
                 if (hero.y >= groundLevel)
                 {
-                    if (hero.y >= groundLevel)
-                    {
-                        hero.y = groundLevel;
-                    }
-
+                    hero.y = groundLevel;
                     force = 15;
                     canDoubleJump = false;
                     doubleJumped = false;
                     UpdateAnimation(Form1.player);
                 }
-
             }
+
             if (Player.onBlock)
             {
                 hero.y = onRec.Y - hero.height + 1;
@@ -341,6 +346,9 @@ namespace HelloKnight
                 canDoubleJump = true;
                 doubleJumped = false;
             }
+
+            // Update bug animation
+            UpdateBugAnimation();
 
             Refresh();
         }
