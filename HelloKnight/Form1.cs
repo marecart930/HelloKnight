@@ -22,6 +22,8 @@ namespace HelloKnight
         public static List<Image> attack = new List<Image>();
         public static List<Image> rattack = new List<Image>();
         public static List<Image> bug = new List<Image>();
+        public static List<Image> boom = new List<Image>();
+
 
         public Form1()
         {
@@ -29,8 +31,9 @@ namespace HelloKnight
             #region sprites
             player.Add(Properties.Resources.idle);
             player.Add(Properties.Resources.idle);
-            player.Add(Properties.Resources.idle2);
-            player.Add(Properties.Resources.idle2);
+            player.Add(Properties.Resources.idle);
+            player.Add(Properties.Resources.idle2);      
+            player.Add(Properties.Resources.idle3);
             player.Add(Properties.Resources.idle3);
             player.Add(Properties.Resources.idle3);
 
@@ -73,12 +76,7 @@ namespace HelloKnight
             rdash.Add(Properties.Resources.rdash5);
 
             attack.Add(Properties.Resources.attack1);
-            //attack.Add(Properties.Resources.attack2);
-            //attack.Add(Properties.Resources.attack3);
-
             rattack.Add(Properties.Resources.rattack1);
-            //rattack.Add(Properties.Resources.rattack2);
-            //rattack.Add(Properties.Resources.rattack3);
 
             bug.Add(Properties.Resources.bug1);
             bug.Add(Properties.Resources.bug2);
@@ -89,6 +87,13 @@ namespace HelloKnight
             bug.Add(Properties.Resources.bug7);
             bug.Add(Properties.Resources.bug8);
             bug.Add(Properties.Resources.bug9);
+
+            boom.Add(Properties.Resources.boom1);
+            boom.Add(Properties.Resources.boom2);
+            boom.Add(Properties.Resources.boom3);
+            boom.Add(Properties.Resources.boom4);
+            boom.Add(Properties.Resources.boom5);
+
 
             #endregion
             ChangeScreen(this, new MenuScreen());

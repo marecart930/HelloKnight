@@ -19,7 +19,7 @@ namespace HelloKnight
         {
             x = startX;
             y = startY;
-            currentBugSprite = Form1.bug[0]; // Initialize the bug sprite
+            currentBugSprite = Form1.bug[0];
         }
     }
 }

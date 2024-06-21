@@ -14,7 +14,7 @@ namespace HelloKnight
 
         public static bool onBlock;
 
-        public int x, y, topY;
+        public int x, y;
         public int width = 70;
         public int height = 90;
         public int speed = 5;

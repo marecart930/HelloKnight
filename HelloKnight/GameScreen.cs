@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using System.Threading;
 
 namespace HelloKnight
 {
@@ -16,7 +17,7 @@ namespace HelloKnight
     {
         bool aKeyDown, dKeyDown, spaceKeyDown, shiftKeyDown;
         Player hero;
-        Bug bug;  // Declare the Bug object
+        Bug bug;
 
         public static int width, height;
 
@@ -27,7 +28,7 @@ namespace HelloKnight
         int spriteNumber = 0;
         int animationTick = 0;
         int animationSpeed = 5;
-        int dashSpeed = 10;
+        int dashSpeed = 7;
         int normalSpeed = 5;
         int dashDuration = 15;
         int dashTicksRemaining = 0;
@@ -44,6 +45,8 @@ namespace HelloKnight
 
         List<Rectangle> blocks = new List<Rectangle>();
 
+        private Random random = new Random();
+
         public GameScreen()
         {
             InitializeComponent();
@@ -55,7 +58,7 @@ namespace HelloKnight
             width = this.Width;
             height = this.Height;
             hero = new Player(200, 290);
-            bug = new Bug(560, 145);  // Initialize the Bug object
+            bug = new Bug(560, 145);
 
             this.groundLevel = hero.y;
 
@@ -87,7 +90,7 @@ namespace HelloKnight
             e.Graphics.DrawImage(hero.currentSprite, hero.x, hero.y, hero.width, hero.height);
             e.Graphics.DrawImage(bug.currentBugSprite, bug.x, bug.y, bug.width, bug.height);
 
-            // Draw the blocks
+            // Draw blocks
             e.Graphics.DrawImage(Properties.Resources.platform2, theImageWasntTheRightSizeBlock);
         }
 
@@ -115,9 +118,6 @@ namespace HelloKnight
                         Dash();
                     }
                     break;
-                case Keys.B:
-                    int check = 1;
-                    break;
                 case Keys.Escape:
                     Application.Exit();
                     break;
@@ -127,10 +127,36 @@ namespace HelloKnight
             }
         }
 
+        private bool IsPlayerAttackingBug()
+        {
+            Rectangle playerRect = new Rectangle(hero.x, hero.y, hero.width, hero.height);
+            Rectangle bugRect = new Rectangle(bug.x, bug.y, bug.width, bug.height);
+
+            if (playerRect.IntersectsWith(bugRect))
+            {
+                // Trigger death effect
+                TriggerDeathEffect();
+
+                // Return true to indicate the bug is attacked
+                return true;
+            }
+
+            return false;
+        }
+
+        private void TeleportBug()
+        {
+            int newX = random.Next(0, 800 - bug.width);
+            int newY = random.Next(0, 450 - bug.height);
+            bug.x = newX;
+            bug.y = newY;
+        }
+
         private void GameScreen_MouseClick(object sender, MouseEventArgs e)
         {
             isAttacking = true;
-            spriteNumber = 0; // Reset sprite animation to the start
+            spriteNumber = 0;
+
             if (aKeyDown)
             {
                 UpdateAnimation(Form1.attack);
@@ -159,7 +185,7 @@ namespace HelloKnight
                     if (spriteNumber >= spriteList.Count)
                     {
                         spriteNumber = 0;
-                        isAttacking = false; // Reset attacking state once animation finishes
+                        isAttacking = false;
                     }
                     hero.currentSprite = spriteList[spriteNumber];
                 }
@@ -182,7 +208,7 @@ namespace HelloKnight
 
         private void UpdateBugAnimation()
         {
-            List<Image> bugSpriteList = Form1.bug; // Get the bug sprites from Form1
+            List<Image> bugSpriteList = Form1.bug;
 
             animationTick++;
             if (animationTick >= animationSpeed)
@@ -233,7 +259,7 @@ namespace HelloKnight
                 }
             }
 
-            // Handle attack animation priority
+            // Attack animation
             if (isAttacking)
             {
                 if (aKeyDown)
@@ -248,11 +274,18 @@ namespace HelloKnight
                 {
                     UpdateAnimation(Form1.attack);
                 }
+
+                // Check if the player hits the bug during the attack
+                if (IsPlayerAttackingBug())
+                {
+                    TeleportBug();
+                }
+
                 Refresh();
-                return; // Exit early to prioritize attack animation
+                return;
             }
 
-            // Handle dash duration
+            //Dash duration
             if (dashTicksRemaining > 0)
             {
                 dashTicksRemaining--;
@@ -271,7 +304,7 @@ namespace HelloKnight
                 }
             }
 
-            // Handle player horizontal movement
+            // Horizontal movement
             if (dKeyDown && (hero.y == groundLevel || Player.onBlock))
             {
                 hero.Move("right");
@@ -287,7 +320,7 @@ namespace HelloKnight
                 UpdateAnimation(Form1.player);
             }
 
-            // Handle jumping logic
+            // Jumping logic
             if (spaceKeyDown && force > 0)
             {
                 hero.y -= jumpSpeed;
@@ -352,5 +385,18 @@ namespace HelloKnight
 
             Refresh();
         }
+
+        private void TriggerDeathEffect()
+        {
+            // Change bug sprite to boom
+            List<Image> boomSprites = Form1.boom;
+            foreach (Image boomSprite in boomSprites)
+            {
+                bug.currentBugSprite = boomSprite;
+                Refresh(); 
+            }
+            TeleportBug();
+        }
     }
 }
+
